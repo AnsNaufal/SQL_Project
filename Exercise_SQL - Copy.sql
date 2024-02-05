@@ -1,5 +1,4 @@
 -- 1. The largest total transaction value during 2021
-
 select
   format_datetime("%B", datetime(order_date)) as month,
   sum(after_discount) as total_transaction
@@ -10,7 +9,6 @@ group by 1
 order by total_transaction desc;
 
 -- 2. Categories that generate the most transaction value in 2022
-
 select
   category,
   round(sum(after_discount), 2) as total_transaction
@@ -20,7 +18,6 @@ from `finpro.order_detail` od
   and is_valid = 1
 group by 1
 order by 2 desc
-
 
 -- 3. Comparison of transaction value of each category in 2021 and 2022.
 with TransactionByYear as (
@@ -46,7 +43,6 @@ from TransactionByYear
 order by 2 desc
 
 -- 4. The most used payment methods during 2022
-
 select 
   payment_method,
   count(distinct od.id) as total_payment_method
@@ -57,9 +53,7 @@ from `finpro.order_detail` od
 group by 1
 order by 2 desc
 
-
 -- 5. Order of products with the highest transaction value
-
 with TransactionByProduct as (
 select 
   case
@@ -82,5 +76,3 @@ select
 from TransactionByProduct
   where product_brand is not null
   order by total_transaction desc;
-
-
